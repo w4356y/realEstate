@@ -22,3 +22,5 @@ Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
+URL: https://github.com/w4356y/realEstate
+BugReports: https://github.com/w4356y/realEstate/issues
