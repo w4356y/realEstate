@@ -1,0 +1,13 @@
+Package: realEstate
+Title: Analysis report of real estate in China
+Version: 0.0.0.9000
+Authors@R: person('Wei', 'Jiang', email = 'w4356y@163.com', role = c('cre', 'aut'))
+Description: Display an overview of the price of real estate in China use data from internet.
+License: MIT + file LICENSE
+Imports: 
+    config,
+    golem,
+    shiny
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
