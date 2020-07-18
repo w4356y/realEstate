@@ -24,3 +24,5 @@ Suggests:
 VignetteBuilder: knitr
 URL: https://github.com/w4356y/realEstate
 BugReports: https://github.com/w4356y/realEstate/issues
+Depends: 
+    R (>= 2.10)
