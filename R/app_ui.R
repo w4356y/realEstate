@@ -9,8 +9,14 @@ app_ui <- function(request) {
     # Leave this function for adding external resources
     golem_add_external_resources(),
     # List the first level UI elements here 
-    fluidPage(
-      h1("realEstate")
+    # fluidPage(
+    #   h1("realEstate")
+    # ),
+    
+    #mod_basic_stat_ui("basic_stat_ui_1"),
+    htmlTemplate(
+      filename = "./inst/app/www/index.html"
+      #blog_counter = mod_page_design_ui("page_design_ui_1")
     )
   )
 }
