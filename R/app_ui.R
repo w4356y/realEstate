@@ -15,8 +15,13 @@ app_ui <- function(request) {
     
     #mod_basic_stat_ui("basic_stat_ui_1"),
     htmlTemplate(
-      filename = "./inst/app/www/index.html"
-      #blog_counter = mod_page_design_ui("page_design_ui_1")
+      filename = "./inst/app/www/index.html",
+      new_house = mod_page_design_ui("page_design_ui_1"),
+      new_house_price = mod_price_new_house_ui("price_new_house_ui_1"),
+      second_house = mod_count_second_house_ui("count_second_house_ui_1"),
+      second_house_price = mod_price_second_house_ui("price_second_house_ui_1"),
+      last_refresh = uiOutput("last_refresh"),
+      stat_new_house = mod_stat_new_house_ui("stat_new_house_ui_1")
     )
   )
 }
