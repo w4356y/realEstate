@@ -21,6 +21,10 @@ usethis::use_package( "thinkr" )
 ## Create a module infrastructure in R/
 golem::add_module( name = "basic_stat" ) # Name of the module
 golem::add_module( name = "page_design" ) # Name of the module
+golem::add_module( name = "price_new_house" )
+golem::add_module( name = "count_second_house" )
+golem::add_module( name = "price_second_house" )
+golem::add_module( name = "stat_new_house" )
 
 ## Add helper functions ----
 ## Creates ftc_* and utils_*

@@ -13,6 +13,7 @@ mod_stat_new_house_ui <- function(id){
     column(width = 12, echarts4rOutput(ns("plot_med_price"), height = "300px")),
     column(width = 6, echarts4rOutput(ns("plot_house_type"), height = "200px")),
     column(width = 6, echarts4rOutput(ns("plot_house_status"), height = "200px")),
+    column(width = 12, shiny::div(style = 'overflow-x: scroll; overflow-y: scroll; color:"blue"', DT::dataTableOutput(ns("house_info")))),
     column(width = 4, echarts4rOutput(ns("plot_acc_author"), height = "250px")),
   )
 }
@@ -69,6 +70,23 @@ mod_stat_new_house_server <- function(input, output, session, df){
       e_legend(show = FALSE) %>% 
       e_tooltip(formatter = e_tooltip_pie_formatter(
         style = c( "decimal")))
+  })
+  output$house_info <- DT::renderDataTable({
+    #browser()
+    DT::datatable(df %>% 
+                    select(-c(Location,Tags, Unit_Price, Total_Price,Area_small,Area_big)), 
+                  extensions = 'Buttons', 
+                  options = list(
+                    pageLength = 8,
+                    dom = 'Bfrtip',
+                    initComplete = DT::JS(
+                      "function(settings, json) {",
+                      "$(this.api().table().header()).css({'background-color': '#42f', 'color': '#fff'});",
+                      "$(this.api().table().content()).css({'background-color': '#42f', 'color': '#fff'});",
+                      "}"),
+                    buttons = c('print','excel')
+                  )
+    )
   })
 }
     

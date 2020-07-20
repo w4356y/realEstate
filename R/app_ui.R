@@ -13,6 +13,7 @@ app_ui <- function(request) {
     #   h1("realEstate")
     # ),
     
+    
     #mod_basic_stat_ui("basic_stat_ui_1"),
     htmlTemplate(
       filename = "./inst/app/www/index.html",
