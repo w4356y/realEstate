@@ -22,7 +22,7 @@ mod_tag_new_house_ui <- function(id){
 mod_tag_new_house_server <- function(input, output, session, df){
   ns <- session$ns
   output$plot_tag_wordcloud <- renderEcharts4r({
-    df$Tags %>% str_split(" ") %>% unlist() %>%
+    df$Tags %>% stringr::str_split(" ") %>% unlist() %>%
       table(dnn ="tags") %>% as.data.frame() %>%   e_color_range(Freq, color) %>% 
       e_charts() %>% 
       e_cloud(tags, Freq, 
@@ -32,8 +32,10 @@ mod_tag_new_house_server <- function(input, output, session, df){
     
     })
   output$plot_tag_box <- renderPlot({
+    #library(Hmisc)
+    library(ggplot2)
     tag_names = df$Tags %>% 
-      str_split(" ") %>% unlist() %>% 
+      stringr::str_split(" ") %>% unlist() %>% 
       table(dnn = "Tag") %>% 
       as.data.frame() %>% 
       arrange(desc(Freq)) %>% 
@@ -42,7 +44,7 @@ mod_tag_new_house_server <- function(input, output, session, df){
       as.character()
     lapply(tag_names, 
            function(x) filter(df, 
-                              str_detect(Tags, x)) %>% 
+                              stringr::str_detect(Tags, x)) %>% 
              filter(!is.na(Unit_price))  %>% 
              mutate(Unit_price = as.numeric(Unit_price))  %>% 
              filter(Unit_price > 10000) %>% 
