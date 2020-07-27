@@ -11,7 +11,7 @@ app_server <- function( input, output, session) {
   library(dplyr)
   library(glue)
   library(echarts4r)
-  library(Hmisc)
+  #library(Hmisc)
   #callModule(mod_basic_stat_server, "basic_stat_ui_1")
   #callModule(mod_page_design_server, "page_design_ui_1")
   #d_data_model <- reactive({ readRDS("data/app-data-model.rds") })
@@ -22,6 +22,8 @@ app_server <- function( input, output, session) {
   callModule(mod_price_second_house_server, "price_second_house_ui_1", df = df_ershou)
   callModule(mod_stat_new_house_server, "stat_new_house_ui_1", df = df_loupan)
   callModule(mod_tag_new_house_server, "tag_new_house_ui_1",df = df_loupan)
+  callModule(mod_stat_second_house_server, "stat_second_house_ui_1", df = df_loupan)
+  
   
   output$last_refresh <- renderUI({
     last_refresh_formatted <- strftime(Sys.Date(), format = "%Y-%m-%d")
