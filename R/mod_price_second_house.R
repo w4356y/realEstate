@@ -23,8 +23,7 @@ mod_price_second_house_ui <- function(id){
 #' @noRd 
 mod_price_second_house_server <- function(input, output, session, df){
   ns <- session$ns
-  price = df %>% filter(!is.na(price)) %>% pull(price) %>%
-    as.numeric() %>% median()
+  price = df$price %>% as.numeric() %>% median()
   #browser()
   output$count_to <- renderUI({
     HTML(sprintf('<h3 class="count-to font-alt" data-countto="%g" style="color: blue"></h3>',price))

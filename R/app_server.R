@@ -11,18 +11,19 @@ app_server <- function( input, output, session) {
   library(dplyr)
   library(glue)
   library(echarts4r)
-  #library(Hmisc)
+  library(Hmisc)
+  library(stringr)
   #callModule(mod_basic_stat_server, "basic_stat_ui_1")
   #callModule(mod_page_design_server, "page_design_ui_1")
   #d_data_model <- reactive({ readRDS("data/app-data-model.rds") })
   #callModule(, "blog_counter", d_data_model, "n_blogs")
   callModule(mod_page_design_server, "page_design_ui_1", df = df_loupan)
   callModule(mod_price_new_house_server, "price_new_house_ui_1", df = df_loupan)
-  callModule(mod_count_second_house_server, "count_second_house_ui_1", df = df_ershou)
+  callModule(mod_count_second_house_server, "count_second_house_ui_1", df = df_ershou_stat)
   callModule(mod_price_second_house_server, "price_second_house_ui_1", df = df_ershou)
   callModule(mod_stat_new_house_server, "stat_new_house_ui_1", df = df_loupan)
   callModule(mod_tag_new_house_server, "tag_new_house_ui_1",df = df_loupan)
-  callModule(mod_stat_second_house_server, "stat_second_house_ui_1", df = df_loupan)
+  callModule(mod_stat_second_house_server, "stat_second_house_ui_1", df = df_ershou, df_stat = df_ershou_stat)
   
   
   output$last_refresh <- renderUI({

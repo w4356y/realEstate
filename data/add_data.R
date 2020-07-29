@@ -16,8 +16,11 @@
  # ## Get the house dietribution by district
  # 
  # 
- # df_ershou = read_xlsx("data/nanjing_ershoufang_2020-07-19.xlsx") %>% select(-c(1)) %>% distinct()
+ # #df_ershou = read_xlsx("data/nanjing_ershoufang_2020-07-19.xlsx") %>% select(-c(1)) %>% distinct()
+ # df_ershou = read_xlsx("data/nanjing_ershoufang_2020-07-28.xlsx") %>% 
+ #         distinct()
  # df_ershou = df_ershou %>% mutate(Total_Price = str_replace(Total_Price,"\\s","")) %>%
  #   mutate(price = str_extract(Unit_Price, "\\d+"))
  # 
- # usethis::use_data(df_loupan,df_ershou, overwrite = T)
+ # df_ershou_stat = read_xlsx("data/ershoufang_num_stat.xlsx")
+ # usethis::use_data(df_loupan,df_ershou, df_ershou_stat, overwrite = T)

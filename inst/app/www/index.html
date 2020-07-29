@@ -94,7 +94,7 @@
 <nav class="navbar navbar-custom navbar-transparent navbar-fixed-top one-page" role="navigation">
         <div class="container">
           <div class="navbar-header">
-            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#custom-collapse"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="index.html"><img src="www/assets/images/wei_image/wei_logo3.svg" width="120" style="margin-top:-10px"></a>
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#custom-collapse"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button><a class="navbar-brand" href="index.html"><img src="www/assets/images/wei_image/wei_logo4.svg" width="120" style="margin-top:-10px"></a>
           </div>
           <div class="collapse navbar-collapse" id="custom-collapse">
             <ul class="nav navbar-nav navbar-right">
@@ -121,38 +121,38 @@
           <div class="container">
             <div class="row">
               <div class="col-sm-6 col-sm-offset-3">
-                <h2 class="module-title font-alt">Data</h2>
+                <h2 class="module-title font-alt">Stats</h2>
                 <div class="module-subtitle font-serif">
-                   last_refresh 
+                   {{ last_refresh }} 
                 </div>
               </div>
             </div>
             <div class="row multi-columns-row">
               <div class="col-sm-6 col-md-3 col-lg-3">
-                blog_counter 
+                {{ new_house }} 
               </div>
               <div class="col-sm-6 col-md-3 col-lg-3">
-              author_counter
+              {{ new_house_price }}
               </div>
               <div class="col-sm-6 col-md-3 col-lg-3">
-                word_counter
+                {{ second_house }}
               </div>
               <div class="col-sm-6 col-md-3 col-lg-3">
-                page_counter
+                {{ second_house_price }}
               </div>
             </div>
           </div>
         </section>
-        <section class="module bg-dark-90" id="stats">
+        <section class="module bg-dark-60" id="stats">
           <div class="container">
             <div class="row">
                 <div class="col-sm-6 col-sm-offset-3">
-                <h2 class="module-title font-alt">Summary Stats</h2>
+                <h2 class="module-title font-alt">NEW HOUSE</h2>
                 <div class="module-subtitle font-serif">
                 </div>
               </div>
             </div>
-            insights_charts
+            {{ stat_new_house }}
           </div>
         </section>
         
@@ -160,38 +160,24 @@
           <div class="container">
             <div class="row">
               <div class="col-sm-6 col-sm-offset-3">
-                <h2 class="module-title font-alt">Topic Model</h2>
-                <div class="module-subtitle font-serif">
-                  Click on the graph to explore topics
-                </div>
+                <h2 class="module-title font-alt">Tags Analysis</h2>
               </div>
             </div>
-          </div>
-          <div class="container">
-            <!--div class="row">
-              <div class="col-md-6 col-sm-12"-->
-                 topics_graph 
-              <!--/div>
-            </div-->
-            <div class="row">
-              <div class="col-sm-12">
-              &nbsp;
-              </div>
-            </div>
+          {{ tag_new_house }} 
           </div>
         </section>
         <section class="module-small bg-dark-90">
           <div class="container">
             <div class="row">
                 <div class="col-sm-6 col-sm-offset-3">
-                <h2 class="module-title font-alt">Topic Top Terms</h2>
+                <h2 class="module-title font-alt">Second-hand House</h2>
                 <div class="module-subtitle font-serif">
                   
                 </div>
               </div>
             </div>
             
-            topics_table
+            {{ stat_second_house }}
 
           </div>
         </section>
@@ -201,7 +187,7 @@
           <div class="container">
             <div class="row">
               <div class="col-sm-6 col-sm-offset-3">
-                <h2 class="module-title font-alt">Project</h2>
+                <h2 class="module-title font-alt">About the Project</h2>
                 <div class="module-subtitle font-serif">
                 </div>
               </div>
@@ -212,14 +198,14 @@
               <div class="col-sm-8">
                 <div class="post">
                   <div class="post-header font-alt">
-                    <h1 class="post-title">Analysing 10+ Years of R Blogs</h1>
+                    <h1 class="post-title">Analysing of house price of Nanjing</h1>
                   </div>
                   <div class="post-entry">
                     <p>
                       An article by <a href="https://juliasilge.com/">Julia Silge</a> about <a href="https://juliasilge.com/blog/evaluating-stm/">Structural Topic Models</a> gave the inspiration for this project. I have often struggled to extract meaningful information from free text documents but Julia's results looked very convincing. Additionally the chosen topic model algorithm can take advantage of additional meta information associated for each document. The <a href="https://me.eui.eu/andrea-de-angelis/blog/structural-topic-models-to-study-political-text-an-application-to-the-five-star-movements-blog/">blog article</a> by Andrea De Angelis explained how to exploit publication dates of documents and show topic trends over time. After some digging I found the <a href="https://cran.r-project.org/web/packages/stminsights/vignettes/intro.html">vignette</a> of the <a href="https://github.com/cschwem2er/stminsights">stminsights</a> package which provides functionality to extract topic correlation graphs from the trained structural topic model. All these resources put enough ideas in my head to create this app.
                     </p>
                     
-                    <h4 class="font-alt">Data</h4>
+                    <h4 class="font-alt">Where is the data source?</h4>
                     <p>
                       I am a fond reader of blog articles published on <a href="https://r-bloggers.com">R-Bloggers</a>. It is an aggregator for blogs about R and has been around for more than a decade. I thought it would be very interesting to see how the R scene has developed over the last 10 years. What topics were talked about in the past, what are people writing about today? Would we see the rise of Shiny, the tidyverse, Rmarkdown, CRAN releases, conference announcements?
                     </p>
@@ -241,16 +227,7 @@
                       For the ongoing data refresh I download the R-Blogger RSS feeds every day using a script running in a Docker container on AWS on a daily schedule. The RSS feed is a XML file that contains the latest 25 articles published on the website. At the end of each month a second script in a second container combines the articles in all collected feeds with the 30,000 scraped articles and refreshes the topic model behind this application. So every month something new should appear in this Shiny app. 
                     </p>
 
-                    <h4 class="font-alt">Topic Model</h4>
-                    <p>
-                      I followed Julia Silge's methodology to determine the optimal number of topics. The process involves training several models with varying number of topics and then inferring a reasonable topic number from a variety of diagnostic plots. The training took many hours to complete, I let the machine run over night despite parallelising the computation.
-                    </p>
-                    
-                    <p>
-                      The topic models are generated using the <a href="https://github.com/bstewart/stm">stm</a> package. Papers on the topic algorithm can be found <a href="https://www.structuraltopicmodel.com/">here</a>. Some code from the <a href="https://github.com/mikajoh/tidystm">tidystm</a> package was used to transform STM outputs into tidy format.
-                    </p>
-
-                    <h4 class="font-alt">Did it work?</h4>
+                    <h4 class="font-alt">What we can see from the data?</h4>
                     <p>
                       So did it actually work? Did the topic model identify relevant R trends? I think it did! Here are the results for three particular topics.  The top row of bar charts shows the overall prevalence of the shown topics. The middle row shows the estimated topic proportion across the corpus over time and the bottom row of word clouds presents the top terms in each of the topics. We see the increased interest in machine learning and deep neural networks, the rise of the tidyverse (lots of dplyr verbs) and the popularity of Shiny. Click on the image to enlarge.
                     </p>
@@ -279,31 +256,13 @@
                       Overall, I am very happy with these results. In fact, I think they are quite astonishing. Without any additional information about this corpus, the topic model has identified a lot of meaningful topics and most topics are immediately recognizable as relevant R related content.
                     </p>
                     
-                    <h4 class="font-alt">Application</h4>
-                    <p>
-                      I like beautiful data products and so I used <a href="https://shiny.rstudio.com/articles/templates.html">HTML templates</a> to create a unique look for this <a href="https://shiny.rstudio.com/">Shiny application</a>. The template is called <a href="https://markup.themewagon.com/titan/index.html">Titan</a> and is freely available. There was a bit more JavaScript foo necessary for the network visualisation.
-                    </p>
-                    
-                    <p>
-                      To improve readability, the code is structured using <a href="https://shiny.rstudio.com/articles/modules.html">Shiny modules</a>. 
-                    </p>
-                    
-                    <h4 class="font-alt">Deployment</h4>
-                    <p>
-                      The development environment of this project is a <a href="https://hub.docker.com/r/rocker/rstudio/">Rocker</a> based <a href="https://www.docker.com/">Docker</a> container running the Open Source version of <a href="https://rstudio.com/products/rstudio/#rstudio-server">RStudio Server</a>. Docker allows to control all aspects of the development environment, i.e. operating system, system packages and R version. The versions of R packages are tracked using the <a href="https://github.com/rstudio/renv">renv</a> package. The containerisation intends to simplify the setup of a working development environment.
-                    </p>
-                    
-                    <p>
-                      All code is on <a href="https://github.com/nz-stefan/blog-explorer">GitHub</a> and also available as a public <a href="https://rstudio.cloud/project/1085074">RStudio Cloud project</a>.
-                    </p>
-                    
                   </div>
                 </div>
               </div>
               
               <div class="col-sm-4 col-md-3 col-md-offset-1 sidebar">
                 <div class="widget">
-                  <h5 class="widget-title font-alt">Themes & Assets</h5>
+                  <h5 class="widget-title font-alt">Views & Policies</h5>
                   <p>
                     The amazing theme used in this application is called <a href="https://markup.themewagon.com/titan/index.html">Titan</a> and is developed by <a href="https://themewagon.com/author/themewagon/">ThemeWagon</a>. It can be downloaded for free!
                   </p>
@@ -335,7 +294,7 @@
                 <div class="widget">
                   <h5 class="widget-title font-alt">Developed By</h5>
                   <p>
-                    Wei Jiang<br>
+                    Wei Jiang, Ways Data Studio<br>
                     Nanjing, China
                   </p>
                   <p>
@@ -353,7 +312,7 @@
                     Git: https://github.com/w4356y
                   </p>
                   <p>
-                    Check out the <a href="https://w4356y.wixsite.com/home">Data Detective</a> for more information.
+                    Check out the <a href="https://w4356y.wixsite.com/home">Ways Data Studio</a> for more information.
                   </p>
                 </div>
               </div>
@@ -366,7 +325,7 @@
           <div class="container">
             <div class="row">
               <div class="col-sm-12">
-                <p class="copyright font-alt">Data Detective, 2020</p>
+                <p class="copyright font-alt">Ways Data Studio, 2020</p>
               </div>
               <!--div class="col-sm-6">
                 <div class="footer-social-links"><a href="https://www.linkedin.com/in/sschliebs/"><i class="fa fa-linkedin"></i></a><a href="https://github.com/nz-stefan/"><i class="fa fa-github"></i></a>

@@ -10,7 +10,7 @@
 mod_count_second_house_ui <- function(id){
   ns <- NS(id)
   F_COUNT_ICON_TEMPLATE = "./inst/app/www/modules/count_icon/index.html"
-  htmlTemplate(
+  shiny::htmlTemplate(
     filename = F_COUNT_ICON_TEMPLATE,
     icon = "icon-phone",
     count_to = uiOutput(ns("count_to")),
@@ -24,8 +24,9 @@ mod_count_second_house_ui <- function(id){
 mod_count_second_house_server <- function(input, output, session, df){
   ns <- session$ns
   #price = df_loupan %>% filter(!is.na(Unit_price) & Type == "住宅") %>% pull(Unit_price) %>% as.numeric() %>% median()
+  #browser()
   output$count_to <- renderUI({
-    HTML(sprintf('<h3 class="count-to font-alt" data-countto="%g" style="color: blue"></h3>', 93146))
+    shiny::HTML(sprintf('<h3 class="count-to font-alt" data-countto="%g" style="color: blue"></h3>',  sum(df$HouseNum)))
     #HTML(sprintf('<h3  style="color: red">%s</h3>',  paste0("10000+")))
   })
  
