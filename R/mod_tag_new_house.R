@@ -33,7 +33,8 @@ mod_tag_new_house_server <- function(input, output, session, df){
     })
   output$plot_tag_box <- renderPlot({
     #library(Hmisc)
-    library(ggplot2)
+    #browser()
+    
     tag_names = df$Tags %>% 
       stringr::str_split(" ") %>% unlist() %>% 
       table(dnn = "Tag") %>% 

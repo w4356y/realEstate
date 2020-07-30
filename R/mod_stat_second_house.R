@@ -54,10 +54,10 @@ mod_stat_second_house_server <- function(input, output, session, df, df_stat){
   })
   
   output$plot_house_type <- renderEcharts4r({
-    df %>%  mutate(size = str_extract(HouseInfo,"\\d室\\d厅")) %>% 
-      pull(size) %>% table(dnn = "Configuration") %>% 
+    df %>%  mutate(size = stringr::str_extract(HouseInfo,"\\d室\\d厅")) %>% 
+      pull(size) %>% base::table(dnn = "Configuration") %>% 
       as.data.frame() %>% arrange(desc(Freq)) %>% 
-      filter(Freq >10)  %>% 
+      dplyr::filter(Freq >10)  %>% 
       e_charts(Configuration) %>% 
       e_polar() %>% 
       e_angle_axis(Configuration,axisLabel = list(
@@ -68,6 +68,7 @@ mod_stat_second_house_server <- function(input, output, session, df, df_stat){
     
   })
   output$plot_house_size <- renderEcharts4r({
+    #browser()
     df %>%  mutate(area = str_extract(HouseInfo,"\\d+\\.*\\d+平米")) %>% 
       mutate(area = as.numeric(str_replace(area,"平米",""))) %>%  
       filter(area<300) %>% e_chart() %>% 
@@ -83,7 +84,11 @@ mod_stat_second_house_server <- function(input, output, session, df, df_stat){
     df %>% tidyr::separate(HouseInfo, c("Size","Area","direction","decoration","height","year","building_type"), 
                            sep = "\\|", remove = FALSE)  %>%   
       filter(decoration %in% c(" 精装 "," 简装 "," 毛坯 "," 其他 "))  %>% 
-      pull(decoration)  %>% table(dnn="decoration") %>% 
+      pull(decoration)
+    df %>% tidyr::separate(HouseInfo, c("Size","Area","direction","decoration","height","year","building_type"), 
+                           sep = "\\|", remove = FALSE)  %>%   
+      filter(decoration %in% c(" 精装 "," 简装 "," 毛坯 "," 其他 "))  %>% 
+      pull(decoration)  %>% table(.,dnn="decoration") %>% 
       as.data.frame() %>% e_chart(decoration) %>%   
       e_pie(Freq, roseType = "radius") %>% e_tooltip(trigger = "item")
     })
@@ -100,7 +105,7 @@ mod_stat_second_house_server <- function(input, output, session, df, df_stat){
   })
   
   output$plot_year_trend <- renderEcharts4r({ 
-    df %>% separate(HouseInfo, 
+    df %>% tidyr::separate(HouseInfo, 
                     c("Size","Area","direction",
                       "decoration","height","year",
                       "building_type"), 
@@ -148,7 +153,7 @@ mod_stat_second_house_server <- function(input, output, session, df, df_stat){
       mutate(price = as.numeric(str_extract(Unit_Price,"\\d+")), 
              building_type = str_replace(building_type,"\\s",""))  %>%  
       mutate(building_type = str_replace(building_type, "\\s","")) %>%  
-      bwplot(building_type ~ price, data = ., panel = panel.bpplot, 
+      lattice::bwplot(building_type ~ price, data = ., panel = panel.bpplot, 
              scale = list(cex = c(1.2,1)),box.ratio = 0.5, cex.n = 1.1)
     
     })
@@ -163,7 +168,7 @@ mod_stat_second_house_server <- function(input, output, session, df, df_stat){
       mutate(price = as.numeric(str_extract(Unit_Price,"\\d+")), 
              follower = as.numeric(str_replace(follower,"人",""))) 
     with(d %>% filter(follower < 250), 
-         ggfreqScatter(follower, price/1000, 
+         Hmisc::ggfreqScatter(follower, price/1000, 
                        xbreaks = c(5,10,20,30,50,100,150) , 
                        cuts = c(5,10,15,20,25,30,35), fcolor = viridis::viridis(6)) + 
            theme_bw() + xlab("Followers") + ylab("Unit_Price") + 
@@ -183,7 +188,7 @@ mod_stat_second_house_server <- function(input, output, session, df, df_stat){
       mutate(price = as.numeric(str_extract(Unit_Price,"\\d+")), 
              follower = as.numeric(str_replace(follower,"人",""))) 
     with(d %>% filter(day <300 ), 
-         ggfreqScatter(day, price/1000, 
+         Hmisc::ggfreqScatter(day, price/1000, 
                        xbreaks = c(0,10,20,30,60,90,150), 
                        cuts = c(5,10,15,20,25,30,35), 
                        fcolor = viridis::viridis(6)) + 

@@ -13,6 +13,7 @@ app_server <- function( input, output, session) {
   library(echarts4r)
   library(Hmisc)
   library(stringr)
+  library(ggplot2)
   #callModule(mod_basic_stat_server, "basic_stat_ui_1")
   #callModule(mod_page_design_server, "page_design_ui_1")
   #d_data_model <- reactive({ readRDS("data/app-data-model.rds") })
@@ -28,6 +29,6 @@ app_server <- function( input, output, session) {
   
   output$last_refresh <- renderUI({
     last_refresh_formatted <- strftime(Sys.Date(), format = "%Y-%m-%d")
-    HTML(glue('<h4 style="color: purple">Last data refresh occurred on <strong>{ last_refresh_formatted }</strong></h4>.'))
+    HTML(glue('<h4 style="color: purple">Last data refresh occurred on <strong>{ last_refresh_formatted }.</strong></h4>'))
   })
 }
