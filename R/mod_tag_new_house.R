@@ -32,7 +32,7 @@ mod_tag_new_house_server <- function(input, output, session, df){
     
     })
   output$plot_tag_box <- renderPlot({
-    #library(Hmisc)
+    library(Hmisc)
     #browser()
     
     tag_names = df$Tags %>% 

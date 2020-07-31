@@ -10,12 +10,12 @@
 mod_stat_new_house_ui <- function(id){
   ns <- NS(id)
   fluidRow(
-    column(width = 12, echarts4r::echarts4rOutput(ns("plot_med_price"), height = "300px")),
-    column(width = 6, echarts4r::echarts4rOutput(ns("plot_house_type"), height = "200px")),
-    column(width = 6, echarts4r::echarts4rOutput(ns("plot_house_status"), height = "200px")),
-    column(width = 12, shiny::div(style = 'overflow-x: scroll; overflow-y: scroll; color:"blue"', DT::dataTableOutput(ns("house_info")))),
-    column(width = 6, echarts4r::echarts4rOutput(ns("distrib_total_price"), height = "200px")),
-    column(width = 6, echarts4r::echarts4rOutput(ns("distrib_unit_price"), height = "200px"))
+    column(width = 12, echarts4r::echarts4rOutput(ns("plot_med_price"), height = "450px")),
+    column(width = 6, echarts4r::echarts4rOutput(ns("plot_house_type"), height = "300px")),
+    column(width = 6, echarts4r::echarts4rOutput(ns("plot_house_status"), height = "300px")),
+    #column(width = 12, shiny::div(style = 'overflow-x: scroll; overflow-y: scroll; color:"blue"', DT::dataTableOutput(ns("house_info")))),
+    column(width = 6, echarts4r::echarts4rOutput(ns("distrib_total_price"), height = "300px")),
+    column(width = 6, echarts4r::echarts4rOutput(ns("distrib_unit_price"), height = "300px"))
     
   )
 }
@@ -34,7 +34,7 @@ mod_stat_new_house_server <- function(input, output, session, df){
       distinct() %>%  arrange(desc(med_price))  %>% 
       e_charts(District) %>%
       e_bar(med_price, name = "Median unit price", stack = 1) %>% 
-      e_scatter(count, y_index = 1, symbol = "pin",symbol_size = 12) %>%
+      e_scatter(count, y_index = 1, symbol = "pin",symbol_size = 15) %>%
       e_legend(show = FALSE) %>%
       e_tooltip(trigger = "axis")  %>% 
       e_x_axis(axisLabel = list(
@@ -78,23 +78,23 @@ mod_stat_new_house_server <- function(input, output, session, df){
       e_tooltip(formatter = e_tooltip_pie_formatter(
         style = c( "decimal"))) %>% e_theme("essos")
   })
-  output$house_info <- DT::renderDataTable({
-    #browser()
-    DT::datatable(df %>% 
-                    select(-c(Location,Tags, Unit_Price, Total_Price,Area_small,Area_big)), 
-                  extensions = 'Buttons', 
-                  options = list(
-                    pageLength = 8,
-                    dom = 'Bfrtip',
-                    initComplete = DT::JS(
-                      "function(settings, json) {",
-                      "$(this.api().table().header()).css({'background-color': '#42f', 'color': '#fff'});",
-                      "$(this.api().table().content()).css({'background-color': '#42f', 'color': '#fff'});",
-                      "}"),
-                    buttons = c('print','excel')
-                  )
-    )
-  })
+  # output$house_info <- DT::renderDataTable({
+  #   #browser()
+  #   DT::datatable(df %>% 
+  #                   select(-c(Location,Tags, Unit_Price, Total_Price,Area_small,Area_big)), 
+  #                 extensions = 'Buttons', 
+  #                 options = list(
+  #                   pageLength = 8,
+  #                   dom = 'Bfrtip',
+  #                   initComplete = DT::JS(
+  #                     "function(settings, json) {",
+  #                     "$(this.api().table().header()).css({'background-color': '#42f', 'color': '#fff'});",
+  #                     "$(this.api().table().content()).css({'background-color': '#42f', 'color': '#fff'});",
+  #                     "}"),
+  #                   buttons = c('print','excel')
+  #                 )
+  #   )
+  # })
   output$distrib_total_price <- renderEcharts4r({
     
     filter(df, !is.na(T_price)) %>% 
@@ -104,7 +104,7 @@ mod_stat_new_house_server <- function(input, output, session, df){
       table(dnn = "T_price") %>% 
       as.data.frame() %>% 
       e_chart(T_price) %>% 
-      e_line(Freq) %>% 
+      e_line(Freq) %>% e_title("Distribution of total price") %>% 
       e_x_axis(axisLabel = list(
         rotate = 45, 
         color = "black"
@@ -129,7 +129,7 @@ mod_stat_new_house_server <- function(input, output, session, df){
       mutate(price = c("0~10k","10k~15k",
                        "15k~20k","20k~25k",
                        "25k~30k","30k+")) %>% 
-      e_chart(price)  %>% e_line(Freq) %>% 
+      e_chart(price)  %>% e_line(Freq) %>% e_title("Distribution of unit price") %>% 
       e_x_axis(axisLabel = list(
         rotate = 45, 
         color = "black")) %>% 

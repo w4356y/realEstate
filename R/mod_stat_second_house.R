@@ -10,7 +10,7 @@
 mod_stat_second_house_ui <- function(id){
   ns <- NS(id)
   fluidRow(
-    column(width = 12, echarts4r::echarts4rOutput(ns("plot_med_price"), height = "300px")),
+    column(width = 12, echarts4r::echarts4rOutput(ns("plot_med_price"), height = "450px")),
     column(width = 6, echarts4r::echarts4rOutput(ns("plot_house_type"), height = "300px")),
     column(width = 6, echarts4r::echarts4rOutput(ns("plot_house_size"), height = "300px")),
     #column(width = 6, echarts4r::echarts4rOutput(ns("plot_house_type"), height = "300px")),
@@ -29,6 +29,7 @@ mod_stat_second_house_ui <- function(id){
 #' @noRd 
 mod_stat_second_house_server <- function(input, output, session, df, df_stat){
   ns <- session$ns
+  df1 = df
   output$plot_med_price <- renderEcharts4r({
     df %>% group_by(District) %>% 
       summarise(med_price = median(as.numeric(price))) %>%
@@ -37,7 +38,7 @@ mod_stat_second_house_server <- function(input, output, session, df, df_stat){
       distinct() %>%  arrange(desc(med_price))  %>% 
       e_charts(District) %>%
       e_bar(med_price, name = "Median unit price", stack = 1) %>% 
-      e_scatter(HouseNum, y_index = 1, symbol = "pin",symbol_size = 12) %>%
+      e_scatter(HouseNum, y_index = 1, symbol = "pin",symbol_size = 15) %>%
       e_legend(show = FALSE) %>%
       e_tooltip(trigger = "axis")  %>% 
       e_x_axis(axisLabel = list(
@@ -54,17 +55,20 @@ mod_stat_second_house_server <- function(input, output, session, df, df_stat){
   })
   
   output$plot_house_type <- renderEcharts4r({
-    df %>%  mutate(size = stringr::str_extract(HouseInfo,"\\d室\\d厅")) %>% 
-      pull(size) %>% base::table(dnn = "Configuration") %>% 
-      as.data.frame() %>% arrange(desc(Freq)) %>% 
-      dplyr::filter(Freq >10)  %>% 
-      e_charts(Configuration) %>% 
-      e_polar() %>% 
+    #browser()
+    
+    df %>%  mutate(size = stringr::str_extract(HouseInfo,"\\d室\\d厅")) %>%
+      pull(size) %>% base::table(dnn = "Configuration") %>%
+      as.data.frame() %>% arrange(desc(Freq)) %>%
+      dplyr::filter(Freq >10)  %>%
+      e_charts(Configuration) %>%
+      e_polar() %>%
       e_angle_axis(Configuration,axisLabel = list(
-        color = "white")) %>% 
-      e_radius_axis(axisLabel= list(color = "white",splitNumber = 8)) %>% 
-      e_bar(Freq, coord_system = "polar",color = "purple") %>% 
+        color = "white")) %>%
+      e_bar(Freq, coord_system = "polar",color = "purple") %>%
+      e_radius_axis(axisLabel= list(color = "white",splitNumber = 8)) %>%
       e_tooltip(trigger = "item")
+    #browser()
     
   })
   output$plot_house_size <- renderEcharts4r({
@@ -73,14 +77,16 @@ mod_stat_second_house_server <- function(input, output, session, df, df_stat){
       mutate(area = as.numeric(str_replace(area,"平米",""))) %>%  
       filter(area<300) %>% e_chart() %>% 
       e_histogram(area, breaks = 60,color = "skyblue") %>% 
-      e_tooltip(trigger = "axis")  %>% 
+      e_tooltip(trigger = "axis")  %>% e_title("Histogram of house area") %>%
       e_x_axis(axisLabel = list(
         color = "white",size = 4)) %>% 
       e_y_axis(axisLabel= list(color = "white",
-                                          splitNumber = 8))
+                                          splitNumber = 8)) %>% 
+      e_theme("infographic")
     
   })
   output$plot_decoration_pie <-  renderEcharts4r({ 
+    showtext::showtext_auto()
     df %>% tidyr::separate(HouseInfo, c("Size","Area","direction","decoration","height","year","building_type"), 
                            sep = "\\|", remove = FALSE)  %>%   
       filter(decoration %in% c(" 精装 "," 简装 "," 毛坯 "," 其他 "))  %>% 
@@ -93,6 +99,7 @@ mod_stat_second_house_server <- function(input, output, session, df, df_stat){
       e_pie(Freq, roseType = "radius") %>% e_tooltip(trigger = "item")
     })
   output$plot_decoration_box <- renderPlot({
+    showtext::showtext_auto()
     df %>% 
       tidyr::separate(HouseInfo, c("Size","Area","direction",
                                    "decoration","height","year","building_type"), 
@@ -118,7 +125,7 @@ mod_stat_second_house_server <- function(input, output, session, df, df_stat){
       select(year, n_house,med_price) %>% 
       mutate(year = as.factor(year)) %>% 
       e_charts(year) %>% e_scatter(n_house,symbol_size = 8) %>% 
-      e_line(med_price,y_index = 1) %>% 
+      e_line(med_price,y_index = 1) %>%  e_title("","House number and med price of each building year") %>%
       e_tooltip(trigger = "axis")  %>% 
       e_x_axis(axisLabel = list(
         rotate = 45, 
@@ -129,7 +136,8 @@ mod_stat_second_house_server <- function(input, output, session, df, df_stat){
                                           splitNumber = 8)) %>% 
       e_y_axis(index = 1, splitLine = list(show = FALSE)) %>% 
       e_y_axis(index = 1, axisLabel= list(color = "white",
-                                          splitNumber = 8))
+                                          splitNumber = 8)) %>% 
+      e_theme("chalk")
     
     })
   output$plot_build_height <- renderPlot({

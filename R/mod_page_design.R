@@ -32,7 +32,8 @@ mod_page_design_server <- function(input, output, session, df){
   #price = df_loupan %>% filter(!is.na(Unit_price) & Type == "住宅") %>% pull(Unit_price) %>% as.numeric() %>% median()
   output$count_to <- renderUI({
     HTML(sprintf('<h3 class="count-to font-alt" data-countto="%d" style="color: red"></h3>',  n_price))
-  })
+    #HTML(sprintf('<h3  style="color: red">%s</h3>',  paste0("100")))
+    })
 }
     
 ## To be copied in the UI

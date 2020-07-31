@@ -24,7 +24,7 @@ app_ui <- function(request) {
       last_refresh = uiOutput("last_refresh"),
       stat_new_house = mod_stat_new_house_ui("stat_new_house_ui_1"),
       tag_new_house = mod_tag_new_house_ui("tag_new_house_ui_1"),
-      stat_second_house = mod_stat_second_house_ui("stat_second_house_ui_1")
+      stat_second_house =  mod_stat_second_house_ui("stat_second_house_ui_1")
     )
   )
 }
