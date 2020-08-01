@@ -31,6 +31,6 @@ app_server <- function( input, output, session) {
   callModule(mod_stat_new_house_server, "stat_new_house_ui_1", df = df_loupan)
   callModule(mod_tag_new_house_server, "tag_new_house_ui_1",df = df_loupan)
   callModule(mod_stat_second_house_server, "stat_second_house_ui_1", df = df_ershou, df_stat = df_ershou_stat)
-  
+  callModule(mod_tag_second_house_server, "tag_second_house_ui_1", df= df_ershou)
   
 }

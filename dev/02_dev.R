@@ -27,6 +27,7 @@ golem::add_module( name = "price_second_house" )
 golem::add_module( name = "stat_new_house" )
 golem::add_module( name = "tag_new_house" )
 golem::add_module( name = "stat_second_house" )
+golem::add_module( name = "tag_second_house" )
 
 ## Add helper functions ----
 ## Creates ftc_* and utils_*
