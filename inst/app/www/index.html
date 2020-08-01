@@ -99,9 +99,10 @@
           <div class="collapse navbar-collapse" id="custom-collapse">
             <ul class="nav navbar-nav navbar-right">
               <li><a href="#totop">Home</a></li>
-              <li><a class="section-scroll" href="#data">Stats</a></li>
-              <li><a class="section-scroll" href="#stats">New house</a></li>
-              <li><a class="section-scroll" href="#topics">Second-hand house</a></li>
+              <li><a class="section-scroll" href="#stat">Stats</a></li>
+              <li><a class="section-scroll" href="#new">New</a></li>
+              <li><a class="section-scroll" href="#second">Second-hand</a></li>
+              <li><a class="section-scroll" href="#summary">Summary</a></li>
               <!--li><a class="section-scroll" href="#project">Project</a></li-->
               <!--li><a class="section-scroll" href="#contact">Contact</a></li-->
             </ul>
@@ -112,12 +113,12 @@
         <div class="titan-caption">
           <div class="caption-content">
             <div class="font-alt mb-30 titan-title-size-1">Analysing of the house price</div>
-            <div class="font-alt mb-40 titan-title-size-4">Nanjing, Jiangsu, China</div><a class="section-scroll btn btn-border-w btn-round" href="#data">Learn More</a>
+            <div class="font-alt mb-40 titan-title-size-4">Nanjing, Jiangsu, China</div><a class="section-scroll btn btn-border-w btn-round" href="#stat">Learn More</a>
           </div>
         </div>
       </section>
       <div class="main">
-        <section class="module" id="data">
+        <section class="module" id="stat" style="background-color:#D1FFCC;">
           <div class="container">
             <div class="row">
               <div class="col-sm-6 col-sm-offset-3">
@@ -143,11 +144,12 @@
             </div>
           </div>
         </section>
-        <section class="module bg-dark-60" id="stats">
+        <section class="module bg-dark-60" id="new">
           <div class="container">
             <div class="row">
                 <div class="col-sm-6 col-sm-offset-3">
-                <h2 class="module-title font-alt">NEW HOUSE</h2>
+                <h2 class="module-title font-alt">New House</h2>
+                <!--h4>(first sale)</h4-->
                 <div class="module-subtitle font-serif">
                 </div>
               </div>
@@ -156,7 +158,7 @@
           </div>
         </section>
         
-        <section class="module pb-0" id="topics">
+        <section class="module pb-0" style="background-color:#CCFFFF;" id="tag">
           <div class="container">
             <div class="row">
               <div class="col-sm-6 col-sm-offset-3">
@@ -166,11 +168,12 @@
           {{ tag_new_house }} 
           </div>
         </section>
-        <section class="module-small bg-dark-90">
+        <section class="module-small bg-dark-60", id = "second">
           <div class="container">
             <div class="row">
                 <div class="col-sm-6 col-sm-offset-3">
-                <h2 class="module-title font-alt">Second-hand House</h2>
+                <h2 class="module-title font-alt">Second-hand</h2>
+                <!--h4>(pre-owned house)</h4-->
                 <div class="module-subtitle font-serif">
                   
                 </div>
@@ -182,8 +185,18 @@
           </div>
         </section>
 
+        <section class="module pb-0" style="background-color:#CCFFFF;" id="tag1">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-6 col-sm-offset-3">
+                <h2 class="module-title font-alt">Tags Analysis</h2>
+              </div>
+            </div>
+          {{ tag_second_house }} 
+          </div>
+        </section>
         
-        <section class="module-small" id="project">
+        <section class="module-small" id="summary" style="background-color:#99CCFF;">
           <div class="container">
             <div class="row">
               <div class="col-sm-6 col-sm-offset-3">
@@ -202,58 +215,64 @@
                   </div>
                   <div class="post-entry">
                     <p>
-                      An article by <a href="https://juliasilge.com/">Julia Silge</a> about <a href="https://juliasilge.com/blog/evaluating-stm/">Structural Topic Models</a> gave the inspiration for this project. I have often struggled to extract meaningful information from free text documents but Julia's results looked very convincing. Additionally the chosen topic model algorithm can take advantage of additional meta information associated for each document. The <a href="https://me.eui.eu/andrea-de-angelis/blog/structural-topic-models-to-study-political-text-an-application-to-the-five-star-movements-blog/">blog article</a> by Andrea De Angelis explained how to exploit publication dates of documents and show topic trends over time. After some digging I found the <a href="https://cran.r-project.org/web/packages/stminsights/vignettes/intro.html">vignette</a> of the <a href="https://github.com/cschwem2er/stminsights">stminsights</a> package which provides functionality to extract topic correlation graphs from the trained structural topic model. All these resources put enough ideas in my head to create this app.
+                      The inspiration of this app is from <a href "https://github.com/nz-stefan"> Stefan</a>,
+                      his app about <a href="https://nz-stefan.shinyapps.io/blog-explorer/#project">R blog exploring</a> is really amazing and impresive. Base on the networks structure, we would like to create something of our own, and it happens that we were researching price data of real estate.</p>
+                      
+                      <p>
+                      In general, house price is a very common topic among Chinese people, you can hear things about houses almost every day, but most of the time, opinions from others are actually not truth, only data can tell you something new. Here we use python crawler to collect data from online website of house agencies, and visualization of the summarizing data is based on <a href="https://echarts4r.john-coene.com/articles/grid.html">echarts4r</a>. The initial and simple goal of this app is to offer some insight view for the people who is insterested or is planning to buy a real estate but with little knowledge about the business, and we hope the data we prepared will help you to have a basic concept about the house price.     
                     </p>
                     
                     <h4 class="font-alt">Where is the data source?</h4>
                     <p>
-                      I am a fond reader of blog articles published on <a href="https://r-bloggers.com">R-Bloggers</a>. It is an aggregator for blogs about R and has been around for more than a decade. I thought it would be very interesting to see how the R scene has developed over the last 10 years. What topics were talked about in the past, what are people writing about today? Would we see the rise of Shiny, the tidyverse, Rmarkdown, CRAN releases, conference announcements?
+                      The data is scraped from web pages of house agencies like <a href="lianjia.com">Lianjia</a> and <a href="https://nanjing.anjuke.com/">Anjuke</a>. Basicly, the house type is splited into new house and second house, for example, there are about 900 new house and 90000+ second house on trading market, we scraped their data in different way, cause their online available information is slightly different. 
                     </p>
                     <p>
-                      I scraped the blog data from R-Bloggers from their public archives using the super convenient <a href="https://github.com/tidyverse/rvest">rvest</a> package. The process is split into three phases to allow me later to change my mind about the particular processing of articles. 
+                      About the graph and data in this app, there is something that need to know, 
                     </p>
                     
                     <ol>
-                      <li>Obtain a list of links to articles published on R-Bloggers</li>
-                      <li>Download each article from the link collection</li>
-                      <li>Parse each document and combined them into a single dataframe</li>
+                      <li>Currently, the data is from Lianjia, which offers more feasible information than Anjuke, but later we may offer an option for user to pick data source.</li>
+                      <li>Actually only 100 pages of web can scraped from the web, which means only 3000 of the house info records in each district, statisticly it is enough to represent the whole sample.</li>
+                      <li>The data will be updated weekly since it is first online.</li>
                     </ol>
 
                     <p>
-                      For each document I also collected meta information such as blog title, publication date, author and URLs to the original blog. In total I collected more than 30,000 articles published as early as Jan 2010.
-                    </p>
-                    
-                    <p>
-                      For the ongoing data refresh I download the R-Blogger RSS feeds every day using a script running in a Docker container on AWS on a daily schedule. The RSS feed is a XML file that contains the latest 25 articles published on the website. At the end of each month a second script in a second container combines the articles in all collected feeds with the 30,000 scraped articles and refreshes the topic model behind this application. So every month something new should appear in this Shiny app. 
+                      If you are interested in original data, please send a request to our email(w4356y@163.com).
                     </p>
 
                     <h4 class="font-alt">What we can see from the data?</h4>
                     <p>
-                      So did it actually work? Did the topic model identify relevant R trends? I think it did! Here are the results for three particular topics.  The top row of bar charts shows the overall prevalence of the shown topics. The middle row shows the estimated topic proportion across the corpus over time and the bottom row of word clouds presents the top terms in each of the topics. We see the increased interest in machine learning and deep neural networks, the rise of the tidyverse (lots of dplyr verbs) and the popularity of Shiny. Click on the image to enlarge.
+                      Based on the data and graph in this page, we can conclude some points, for new house, 
                     </p>
+                    <ul>
+                    <li>新楼盘中秦淮区价格最高，均价达38300元/平米;</li>
+                    <li>新楼盘可分为3级，第一级包括秦淮，玄武，建邺和鼓楼四区，均价36000+，新房源较少;第二级包括雨花台，栖霞，浦口和江宁四区，均价24000~30000之间，房源充足;第三级为其他区域，均价15000以下，房源供应偏少；</li>
+                    <p>
+                      <a href="www/assets/images/wei_image/tier_loupan.png">
+                        <img src="www/assets/images/wei_image/tier_loupan.png" widh="100%" />
+                      </a>
+                    </p>
+                    <li>新楼盘住宅和在售占比均超过50%;</li>
+                    <li>新楼盘中环线房，现房，公交直达和地铁沿线是最常见标签;</li>
+                    </ul>
                       
                     <p>
-                      <a href="www/assets/images/topic-model-results.png">
-                        <img src="www/assets/images/topic-model-results.png" widh="100%" />
-                      </a>
+                       For second-hand house, 
                     </p>
-
-                    <p>
-                      The topic correlation graph reveals an interesting cluster of correlated topics about specific machine learning aspects. There are two separate "modelling" topics, one about statistical models (linear/logistic regression, GLM, GAM, ANOVA) and the other about machine learning algorithms (decision trees, random forest, GBM, xgboost, train/test, validation). Related topics are about Bayesian inference (STAN, prior and posterior, MCMC), model scoring (measures, results, rules), cluster analysis (hierarchical clustering, PCA, dimensionality reduction), exploratory analysis (densities, distributions, outliers, medians and means), deep learning (neural networks, keras, tensorflow) and hypothesis testing (although this topic also contains several cricket terms which could indicate the content is about a different kind of test). Pretty good for an unsupervised algorithm!
-                    </p>
+                    <ul>
+                    <li>鼓楼和建邺区的二手房价最高，40000左右;</li>
+                    <li>江宁和浦口的二手房房源最多;</li>
+                    <li>鼓楼、建邺、玄武和秦淮二手房价处于第一梯队，均价超过30000;栖霞、雨花台、江宁和浦口处于第二梯队，房价再20000~30000之间;六合、溧水和高淳处于第三等级，二手房均价17000以下；</li>
+                    <li>二手房中，3室2厅和2室1厅的房源最多;</li>
+                    <li>85~90平的房源最多，而90平以下房源中,60~70平的房源最多;</li>
+                    <li>二手房源中，05年到17年建的房子较多;</li>
+                    <li>二手房源中，建造时间越早，价格越高，可能和地理位置和学区有关;</li>
+                    <li>大部分人关注20000~35000之间二手房;</li>
+                    <li>二手房上线时间越久，价格越低，刚上线5~30天的房源关注人数最多;</li>
+                    </ul>
                     
                     <p>
-                      <a href="www/assets/images/topic-model-graph.png">
-                        <img src="www/assets/images/topic-model-graph.png" width="75%" />
-                      </a>
-                    </p>
-                    
-                    <p>
-                      Other big topics cover various types of visualisations (ggplot, maps), networks, time series forecasting, text mining, books and chapters, parallel processing, learning about Python, projects and tools and software, github, file formats, conference talks and presentations, APIs and Rmarkdown. There is even a topic about the US presidential election with spiking coverage in 2016 and 2012 (when the elections occurred).
-                    </p>
-                    
-                    <p>
-                      Overall, I am very happy with these results. In fact, I think they are quite astonishing. Without any additional information about this corpus, the topic model has identified a lot of meaningful topics and most topics are immediately recognizable as relevant R related content.
+                      Overall, We are very happy with these results. In fact, we think they are quite astonishing. If you need more data or other analysis, please contact us via email.
                     </p>
                     
                   </div>
@@ -264,24 +283,21 @@
                 <div class="widget">
                   <h5 class="widget-title font-alt">Views & Policies</h5>
                   <p>
-                    The amazing theme used in this application is called <a href="https://markup.themewagon.com/titan/index.html">Titan</a> and is developed by <a href="https://themewagon.com/author/themewagon/">ThemeWagon</a>. It can be downloaded for free!
+                    I personally is a perssimist on house price in the future, if you want to have a house, find the people you love and you are willing to spend rest of your time with first. And remember, you only live once.
                   </p>
                   <p>
-                    The hero image on the top of this application was created by <a href="https://unsplash.com/@callumlwale">Callum Wale</a> and made available at <a href="https://unsplash.com/">Unsplash</a> for free.
+                    Here are the links about policies,
                   </p>
-                </div>
-                <div class="widget">
-                  <h5 class="widget-title font-alt">Charts & Graphs</h5>
-                  <p>
-                    The beautiful <a href="https://echarts.apache.org/en">ECHARTS</a> engine is behind all charts used in this project. The engine is very comprehensive, supports many chart types and comes with a selection of stylish themes. John Coene developed an easy to use <a href="https://github.com/JohnCoene/echarts4r">R wrapper</a> complete with Shiny support, documentation and impressive examples.
-                  </p>
-                  <p>
-                    The network visualations are powered by DataStorm's <a href="https://datastorm-open.github.io/visNetwork/">visNetwork</a> package.
-                  </p>
+                  <ul>
+                  <li><a href="http://fcj.nanjing.gov.cn/"><font color="FF00CC">南京住房保障和房产局</font></a></li>
+                  <li><a href="https://zhuanlan.zhihu.com/p/143956999"><font color="FF00CC">南京购房证明开具</font></a></li>
+                  <li><a href="https://zhuanlan.zhihu.com/p/134078834"><font color="FF00CC">南京购房条件</font></a></li>
+                  <li><a href="http://rcaj.nanjing.gov.cn/zhzbweb/views/modules/rcaj/template.html?url=/zhzbweb/rcaj/tRcajZcfg&id=d00e7972a59947c791fcde9fcc59e780"><font color="FF00CC">南京人才购房政策</font></a></li>
+                  </ul>
                 </div>
                 <div class="widget">
                   <h5 class="widget-title font-alt">Code</h5>
-                  <p>Open Source and available on <a href="https://github.com/nz-stefan/blog-explorer">GitHub</a></p>
+                  <p>Open Source and available on <a href="https://github.com/w4356y/realEstate">GitHub</a></p>
                 </div>
               </div>
             </div>
@@ -298,7 +314,7 @@
                     Nanjing, China
                   </p>
                   <p>
-                    <a href="https://www.linkedin.com/in/sschliebs/"><i class="fa fa-linkedin" style="font-size:20px; padding-right:15px"></i></a>
+                    <a href="https://twitter.com/w4356y/"><i class="fa fa-twitter" style="font-size:20px; padding-right:15px"></i></a>
                     <a href="https://github.com/w4356y/"><i class="fa fa-github" style="font-size:20px; padding-right:25px"></i></a>
                   </p>
                 </div>

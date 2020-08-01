@@ -16,6 +16,8 @@ app_server <- function( input, output, session) {
   library(Hmisc)
   library(stringr)
   library(ggplot2)
+  library(visNetwork)
+  library(igraph)
   output$last_refresh <- renderUI({
     last_refresh_formatted <- strftime(Sys.Date(), format = "%Y-%m-%d")
     HTML(glue('<h4 style="color: purple">Last data refresh occurred on <strong>{ last_refresh_formatted }.</strong></h4>'))
