@@ -21,37 +21,22 @@ knitr::opts_chunk$set(
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/w4356y/realEstate?branch=master&svg=true)](https://ci.appveyor.com/project/w4356y/realEstate)
 <!-- badges: end -->
 
-The goal of realEstate is to ...
+The goal of realEstate is to take a create a public shiny app to have a overview of the house price of a specific city.
 
-## Installation
+## Install
 
-You can install the released version of realEstate from [CRAN](https://CRAN.R-project.org) with:
-
-``` r
-#install.packages("realEstate")
+```r
+if (!requireNamespace("devtools", quietly = TRUE))
+    install.packages("devtools")
+devtools::install_github("w4356y/realEstate")
 ```
 
-## Example
+## Usage
 
-This is a basic example which shows you how to solve a common problem:
-
-```{r example}
-#library(realEstate)
-## basic example code
+```r
+realEstate::run_app()
 ```
+ 
+ 
+The app can also be accessed in [shinyio](https://w4356y.shinyapps.io/realEstate/).
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
-
-```{r cars}
-summary(cars)
-```
-
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date.
-
-You can also embed plots, for example:
-
-```{r pressure, echo = FALSE}
-plot(pressure)
-```
-
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub!
