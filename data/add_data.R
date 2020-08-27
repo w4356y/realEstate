@@ -2,7 +2,7 @@
 #  library(dplyr)
 #  library(stringr)
 # 
-#  df_loupan = readxl::read_xlsx("./data/nanjing_xinloupan_2020-08-16.xlsx") %>% select(-c(1)) %>% distinct()
+#  df_loupan = readxl::read_xlsx("./data/nanjing_xinloupan_2020-08-27.xlsx") %>% select(-c(1)) %>% distinct()
 #  ## Extract the min, max area and Total price
 #  df_loupan <- df_loupan %>% mutate(Total_Price = str_replace(Total_Price,"\\s","")) %>%
 #    mutate(Area_small = str_extract(Area,"建面\\d*"),
@@ -17,7 +17,7 @@
 # 
 # 
 #  #df_ershou = read_xlsx("data/nanjing_ershoufang_2020-07-19.xlsx") %>% select(-c(1)) %>% distinct()
-#  df_ershou = readxl::read_xlsx("data/nanjing_ershoufang_2020-08-16.xlsx") %>%
+#  df_ershou = readxl::read_xlsx("data/nanjing_ershoufang_2020-08-27.xlsx") %>%
 #          distinct()
 #  df_ershou = df_ershou %>% mutate(Total_Price = str_replace(Total_Price,"\\s","")) %>%
 #    mutate(price = str_extract(Unit_Price, "\\d+"))

@@ -5,8 +5,8 @@ account: w4356y
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 2626475
-bundleId: 3492849
+bundleId: 3563492
 url: https://w4356y.shinyapps.io/realEstate/
-when: 1596964368.4302
+when: 1598529783.03897
 asMultiple: FALSE
 asStatic: FALSE
